@@ -8,8 +8,8 @@ class User extends History
 	String password;
 	List<History> history = new ArrayList<>();
 	SimpleDateFormat Formater = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-	Date date = new Date();
-
+	
+	User(){;}
 	User(String name,String password)
 	{
 		this.username=name;
@@ -23,8 +23,11 @@ class User extends History
 	}
 	public void addTheatre(List<String> T)
 	{
+		Date date = new Date();
 		history.get(history.size()-1).theatreName=T.get(0);
 		history.get(history.size()-1).tickets=T.get(1);
+		history.get(history.size()-1).showtime=T.get(2);
+
 		history.get(history.size()-1).date=Formater.format(date);
 
 	}
@@ -32,7 +35,7 @@ class User extends History
 	{
 		for(History i:history)
 		{
-			System.out.println(username+" "+i.date+" "+i.movieName+" "+i.theatreName+" "+i.tickets);
+			System.out.println(username+" "+i.date+" "+i.movieName+" "+i.theatreName+" "+i.showtime+" "+i.tickets);
 		}
 	}
 }
