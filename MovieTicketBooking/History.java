@@ -7,6 +7,7 @@ class History
 	String theatreName;
 	String tickets;
 	String date;
+	String showtime;
 
 	
 }
