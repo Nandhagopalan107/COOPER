@@ -1,156 +1,64 @@
 import java.util.*;
-import java.io.*;
-public class Main 
+class Movie 
 {
-	static boolean isLogin= false,flag=false;
-	static String uname="",upassword;
-
-	public static void printticket(ArrayList<String> a,String name)
-	{	System.out.println("Your Ticket details");
-		System.out.println("Name : "+name);
-		System.out.println("MovieName: "+a.get(0));
-		System.out.println("TheatreName: "+a.get(1));
-		System.out.println("Seat no:\n");
-		System.out.println(a.get(2));
-
-
-	}
-	public static User Login(ArrayList<User> user)
+	
+	Scanner sc = new Scanner(System.in);
+	String[] names = new String[]{"ROLEX","GPN","PVR"};
+	
+	int timingl = 4,showtime;
+	List<Theatre> theatre = new ArrayList() ;
+	String[] Btimings = new String[]{"10.00 am","2.00 pm","6.30 pm","10.00pm"};
+	String[] Stimings = new String[4];
+	public String movieName;
+	Movie(String name,int x)
 	{
-		
-			
-			
-			for(User tuser:user)
-			{
-				
-				if(tuser.username.equals(uname))
-				{
-					flag=true;
-					
-					if(tuser.password.equals(upassword))
-					{
-							int index = user.indexOf(tuser);
-							isLogin=true;
-							return user.get(index);
-							
-							
-					}
-					else{
-						System.out.println("Incorrect password");
-					}
-				}
-				
-			}
-			if(!flag)
-			System.out.println("User doesn't exist");
-		
-		return new User();
-	}
-	public static void main(String[] args)
-	 {
-	 	
-		User currUser = new User();
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.print("\tMovieTicketBooking\n");
-
-		ArrayList<User> user = new ArrayList<>();
-		user.add(new User("NANDHU","password"));
-		user.add(new User("AKASH","akash"));
-
-		
-
-		List<Movie> movie = new ArrayList<>();
-		movie.add(new Movie("Thunivu",3));
-		movie.add(new Movie("Varisu",2));
-		movie.add(new Movie("Avengers",1));
-		while(!isLogin)
+		this.movieName = name;
+		for(int i=0;i<x;i++)
 		{
-		System.out.println("LOGIN");	
-		System.out.print("Enter the username:");
-		uname = sc.nextLine();	
-		System.out.print("Enter the password:");
-		upassword = sc.nextLine();
-
-		currUser=Login(user);
-		}
-
-
-		
-		List<String> details;
-		int f ;
-		while(true)
+		this.theatre.add(new Theatre(names[i]));
+		for(int j=0;j<x && j<this.timingl;j++)
 		{
-			System.out.println("Enter 1 to Book tickets and 2 to view History and 3 to exit 4 to Logout");
-			f=sc.nextInt();
-			try{
-				switch(f)
-				{
-				case 1:
+				this.Stimings[j]=this.Btimings[j];
+
 				
-					System.out.println("Movies List");
-					for(int i=1;i<=movie.size();i++)
-					{
-						System.out.println(i+"."+(movie.get(i-1).movieName));
-					}
-					System.out.println("Enter the movie number: ");
-					int movieno = sc.nextInt();
-					Movie selected = movie.get(movieno-1);
-					currUser.history.add(new History());
-					details = selected.BookTicket();
-					currUser.addMovie(selected.movieName);
-					currUser.addTheatre(details);
-					break;
-				case 2:
-				
-					currUser.printHistory();
-					break;
-				
-				case 3:
-					System.exit(1);
-					break;
-				
-				case 4:
-					isLogin=false;
-					flag=false;
-					while(!isLogin)
-					{
-						System.out.print("Enter the username:");
-						uname = sc.next();	
-						System.out.print("Enter the password:");
-						upassword = sc.next();
-						currUser=Login(user);
-					}
-
-				default:
-					break;
-				}
-			}
-			catch(Exception e)
-			{
-				System.out.println("Error occured");
-				isLogin=false;
-				flag = false;
-				while(!isLogin)
-					{
-						System.out.print("Enter the username:");
-						uname = sc.next();	
-						System.out.print("Enter the password:");
-						upassword = sc.next();
-
-						currUser=Login(user);
-					}
-
-
-
-			}
-
-			
-			
-
 		}
 		
-
+		for(int k=0,j=x+1;j<this.timingl && k<timingl-x;j++,k++)
+		{
+			this.Btimings[k]=this.Btimings[j];
+		}
 		
+		
+		}
 	}
+
+	
+	public List<String> BookTicket()
+	{	
+		List<String> ticketDetails = new ArrayList<>();
+		System.out.println("\nYou selected "+movieName+"\nSelect the theatre no:");
+		for(int i=1;i<=theatre.size();i++)
+			{
+				System.out.println(i+"."+(theatre.get(i-1).theatreName));
+			}
+		int tno =sc.nextInt();
+		System.out.println("\nYou selected "+theatre.get(tno-1).theatreName);
+		
+		System.out.println("\nselect ShowTimeno");
+			for(int i=0;i<this.Stimings.length;i++)
+			{
+					System.out.println(i+1+"-"+this.Stimings[i]);
+			}
+
+			 this.showtime = sc.nextInt();
+
+		String seatno = theatre.get(tno-1).selectTickets(movieName,Stimings[showtime-1]);
+		ticketDetails.add(theatre.get(tno-1).theatreName);
+		ticketDetails.add(seatno);
+		ticketDetails.add(Stimings[showtime-1]);
+		System.out.println(ticketDetails.get(ticketDetails.size()-1));
+
+		return ticketDetails;
+	}
+	
 }
