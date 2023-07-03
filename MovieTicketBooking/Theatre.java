@@ -56,7 +56,7 @@ class Theatre
 				capacity-=tickets;
 				for(int i=1;i<=tickets;i++)
 				{
-					System.out.println("Enter the seat no: ");
+					System.out.println("Enter the seat no like a1 b2 c3: ");
 					String s=sc.next();
 					char r = s.charAt(0);int col=Character.getNumericValue(s.charAt(1)),row=(int)r-96;
 					
@@ -73,10 +73,12 @@ class Theatre
 					}
 
 				}
+				System.out.println("Total cost of the tickets:"+(tickets*100));
 			}
 			else{
 				System.out.println("Insufficient tickets. Available no of tickets: "+ capacity);
 			}
+
 			this.printTicketdetails(time);
 			return final_seats;
 
@@ -85,8 +87,8 @@ class Theatre
 	 }
 	 public   void printTicketdetails(String time)
 	 {
-	 	System.out.println("\nYour Ticket details:");
-	 	System.out.println("Movie name: "+movie+"\nTheatre Name :"+theatreName+"\n"+"Shsowtime: "+time+"\nSeat no :"+final_seats);
+	 	System.out.println("\nSucessfully Booked tickets.\n\nYour Ticket details:");
+	 	System.out.println("Movie name: "+movie+"\nTheatre Name :"+theatreName+"\n"+"Showtime: "+time+"\nSeat no :"+final_seats);
 	 }
 	 public void details()
 	 {
