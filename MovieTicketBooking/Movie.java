@@ -56,8 +56,6 @@ class Movie
 		ticketDetails.add(theatre.get(tno-1).theatreName);
 		ticketDetails.add(seatno);
 		ticketDetails.add(Stimings[showtime-1]);
-		System.out.println(ticketDetails.get(ticketDetails.size()-1));
-
 		return ticketDetails;
 	}
 	
