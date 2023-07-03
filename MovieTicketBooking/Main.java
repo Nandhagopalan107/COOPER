@@ -4,16 +4,9 @@ public class Main
 {
 	static boolean isLogin= false,flag=false;
 	static String uname="",upassword;
-
-	public static void printticket(ArrayList<String> a,String name)
-	{	System.out.println("Your Ticket details");
-		System.out.println("Name : "+name);
-		System.out.println("MovieName: "+a.get(0));
-		System.out.println("TheatreName: "+a.get(1));
-		System.out.println("Seat no:\n");
-		System.out.println(a.get(2));
-
-
+	public static void greet(String name)
+	{
+			System.out.println("\nWelcome back "+name+"!");
 	}
 	public static User Login(ArrayList<User> user)
 	{
@@ -31,6 +24,8 @@ public class Main
 					{
 							int index = user.indexOf(tuser);
 							isLogin=true;
+							greet(user.get(index).username);
+						
 							return user.get(index);
 							
 							
@@ -43,6 +38,7 @@ public class Main
 			}
 			if(!flag)
 			System.out.println("User doesn't exist");
+
 		
 		return new User();
 	}
@@ -66,13 +62,17 @@ public class Main
 		movie.add(new Movie("Avengers",1));
 		while(!isLogin)
 		{
-		System.out.println("LOGIN");	
+		System.out.println("\nUSERS:");
+		System.out.println("Username: NANDHU\tPassword: password\nUsername: AKASH         Password: akash");
+		System.out.println("\nLOGIN");	
 		System.out.print("Enter the username:");
 		uname = sc.nextLine();	
 		System.out.print("Enter the password:");
 		upassword = sc.nextLine();
 
 		currUser=Login(user);
+
+
 		}
 
 
@@ -81,14 +81,15 @@ public class Main
 		int f ;
 		while(true)
 		{
-			System.out.println("Enter 1 to Book tickets and 2 to view History and 3 to exit 4 to Logout");
+			
+			System.out.println("\nEnter 1 to Book tickets and 2 to view History and 3 to exit 4 to Logout");
 			f=sc.nextInt();
 			try{
 				switch(f)
 				{
 				case 1:
 				
-					System.out.println("Movies List");
+					System.out.println("\nMovies List");
 					for(int i=1;i<=movie.size();i++)
 					{
 						System.out.println(i+"."+(movie.get(i-1).movieName));
